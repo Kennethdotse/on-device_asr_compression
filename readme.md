@@ -84,7 +84,7 @@ inference specifically (see benchmarks below).
 
 | System | Size | Peak RAM | WER | RTF |
 |---|---|---|---|---|
-| Whisper Small baseline (uncompressed) | — | 1,607 MB | 0.116 | 0.195 |
+| Whisper Small baseline (uncompressed) | 922 MB | 1,607 MB | 0.116 | 0.195 |
 | Depth-6 FP32 | 543.6 MB | — | 0.173 | — |
 | **Depth-6 INT8 — whisper.cpp (Arm-targeted)** | **151 MB** | **429.9 MB** | **0.132** | **0.229** |
 | Depth-6 INT8 — ONNX Runtime | 229.1 MB | 1,464 MB | 0.252 | 0.273 |
