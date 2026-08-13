@@ -1,4 +1,4 @@
-# Kasanoma — On-Device English–Twi Code-Switched ASR
+# Kasa-Noma — On-Device English–Twi Code-Switched ASR
 
 **Challenge track:** Mobile AI
 
@@ -82,19 +82,32 @@ inference specifically (see benchmarks below).
 
 ## Benchmarks (fixed 1,681-utterance test set)
 
+Two compression paths, both fine-tuned on KasaSpeech: **structural pruning**
+of our own Whisper Small model (Depth-6, 12→6 layers) and a **natively small
+architecture** (Whisper Tiny) trained from scratch on the same data as a
+comparison point.
+
 | System | Size | Peak RAM | WER | RTF |
 |---|---|---|---|---|
-| Whisper Small baseline (uncompressed) | 922 MB | 1,607 MB | 0.116 | 0.195 |
-| Depth-6 FP32 | 543.6 MB | — | 0.173 | — |
+| Whisper Small baseline (uncompressed) | — | 1,607 MB | 0.116 | 0.195 |
+| Depth-6 FP32 (pruned) | 543.6 MB | — | 0.173 | — |
 | **Depth-6 INT8 — whisper.cpp (Arm-targeted)** | **151 MB** | **429.9 MB** | **0.132** | **0.229** |
 | Depth-6 INT8 — ONNX Runtime | 229.1 MB | 1,464 MB | 0.252 | 0.273 |
+| Whisper Tiny FP32 (native, fine-tuned) | 144.1 MB | 1,682 MB | 0.161 | 0.023 |
+| Whisper Tiny INT8 — whisper.cpp (Arm-targeted) | — | — | **0.081** | — |
+| Whisper Tiny INT8 — ONNX Runtime | 66.8 MB | — | 0.248 | — |
 
-The whisper.cpp export delivers both the best accuracy *and* the smallest
-runtime memory footprint among compressed candidates — the ONNX Runtime
-version, despite a smaller file on disk, barely reduces peak RAM at all.
-This runtime gap is our key finding: **quantization only pays off if the
-inference runtime actually realizes it in memory**, which matters directly
-for what's viable on real Arm mobile hardware.
+Two findings stand out:
+1. **Runtime matters more than the nominal precision label.** Every INT8
+   model is dramatically more accurate under whisper.cpp than under ONNX
+   Runtime — for Tiny, 0.081 vs. 0.248 WER on the *same* quantized weights.
+   Quantization only pays off if the inference runtime actually realizes it.
+2. **Smaller-on-disk isn't smaller-in-memory.** Tiny's FP32 checkpoint is
+   144 MB — 4x smaller than Depth-6 FP32 — yet its peak RAM (1,682 MB)
+   actually exceeds the full 244M-parameter baseline. Depth-6 INT8 via
+   whisper.cpp is the only configuration that meaningfully cuts *runtime*
+   memory (429.9 MB, a 73% reduction), which is what actually determines
+   whether a model fits on a phone.
 
 ## Confirmation
 
