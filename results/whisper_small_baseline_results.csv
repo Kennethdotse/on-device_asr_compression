@@ -1,0 +1,2 @@
+model,WER,CER,avg_inference_time_sec,avg_cpu_percent,peak_ram_MB,peak_gpu_memory_MB
+./finetuned_whisper_model_tiny,0.16087785249113146,0.10297034576104344,0.23392429341094548,20.1206239168111,1681.58203125,188.212890625
