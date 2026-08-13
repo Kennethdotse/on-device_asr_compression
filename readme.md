@@ -4,7 +4,7 @@
 
 ## What we built
 
-Kasa-Noma is a compressed, on-device speech recognition system for
+Kasanoma is a compressed, on-device speech recognition system for
 **English–Twi code-switching** — the everyday pattern of Ghanaian speakers
 moving between English and Twi within a single sentence. Standard monolingual
 ASR models fail at these switch points, and general multilingual models are
