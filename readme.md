@@ -1,4 +1,4 @@
-# Kasa-Noma — On-Device English–Twi Code-Switched ASR
+# Kasanoma — On-Device English–Twi Code-Switched ASR
 
 **Challenge track:** Mobile AI
 
