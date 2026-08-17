@@ -25,7 +25,7 @@ All results are from the same 1,681-utterance test set. Full numbers (parameters
 
 | Model | Runtime | Size | Peak RAM | WER |
 | --- | --- | --- | --- | --- |
-| Whisper Small (baseline, uncompressed) | - | - | 1,607 MB | 0.116 |
+| Whisper Small (baseline, uncompressed) | - | 922MB | 1,607 MB | 0.116 |
 | **Whisper Tiny INT8** | **whisper.cpp** | **41 MB** | **237.5 MB** | **0.081** |
 | Whisper Tiny INT8 | ONNX Runtime | 66.8 MB | 1,104 MB | 0.248 |
 | **Depth-6 INT8** | **whisper.cpp** | **151 MB** | **429.9 MB** | **0.132** |
